@@ -15,25 +15,25 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)  // 생성자를 통해서 값 변경 목적으로 접근하는 메시지들 차단
-@Table(name = "like_comment")
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Table(name = "like_post")
 @Entity
-public class LikeComment extends BaseEntity{
+public class LikePost {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false,name = "writer")
-    private String userId; // UUID
+    @Column(nullable = false,name = "user")
+    private String userId;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(nullable = false,name = "comment_id")
-    private Comment comment;
+    @JoinColumn(nullable = false,name = "post_id")
+    private Post post;
 
     @Builder
-    public LikeComment(String userId,Comment comment){
+    public LikePost(String userId,Post post){
         this.userId = userId;
-        this.comment = comment;
+        this.post = post;
     }
-
 }

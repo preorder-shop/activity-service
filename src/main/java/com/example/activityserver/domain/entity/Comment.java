@@ -1,7 +1,10 @@
 package com.example.activityserver.domain.entity;
 
+import com.example.activityserver.domain.State;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -15,25 +18,32 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)  // 생성자를 통해서 값 변경 목적으로 접근하는 메시지들 차단
-@Table(name = "like_comment")
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Table(name = "comment")
 @Entity
-public class LikeComment extends BaseEntity{
+public class Comment extends BaseEntity{
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private String content;
 
     @Column(nullable = false,name = "writer")
-    private String userId; // UUID
+    private String userId; // userId (UUID)
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(nullable = false,name = "comment_id")
-    private Comment comment;
+    @JoinColumn(name = "post_id")
+    private Post post;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private State state;
 
     @Builder
-    public LikeComment(String userId,Comment comment){
+    public Comment(String content, String userId,Post post){
+        this.content = content;
         this.userId = userId;
-        this.comment = comment;
+        this.post = post;
+        this.state = State.ACTIVE;
     }
 
 }
