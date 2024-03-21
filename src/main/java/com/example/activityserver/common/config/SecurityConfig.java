@@ -1,5 +1,6 @@
 package com.example.activityserver.common.config;
 
+import com.example.activityserver.common.filter.AuthenticationFilter;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -54,6 +55,9 @@ public class SecurityConfig {
                         .requestMatchers("/admin").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 );
+
+        httpSecurity
+                .addFilterBefore(new AuthenticationFilter(),UsernamePasswordAuthenticationFilter.class);
 
 
         return httpSecurity.build();

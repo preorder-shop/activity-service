@@ -36,6 +36,7 @@ public enum BaseResponseStatus {
     CERTIF_INVALID_CODE(false,HttpStatus.BAD_REQUEST.value(), "인증번호 유효시간이 지났습니다."),
 
     TOKEN_INVALID(false,HttpStatus.BAD_REQUEST.value(), "유효한 토큰이 아닙니다."),
+    TOKEN_EXPIRED(false,HttpStatus.BAD_REQUEST.value(), "만료된 토큰입니다."),
 
     INVALID_LOGIN(false,HttpStatus.BAD_REQUEST.value(), "잘못된 로그인 정보입니다."),
 
@@ -63,7 +64,6 @@ public enum BaseResponseStatus {
     FAIL_SAVE_FILE(false,HttpStatus.INTERNAL_SERVER_ERROR.value(), "파일 업로드에 실패했습니다."),
 
     UNEXPECTED_ERROR(false, HttpStatus.INTERNAL_SERVER_ERROR.value(), "예상치 못한 에러가 발생했습니다.");
-
 
     private final boolean isSuccess;
     private final int code;

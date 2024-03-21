@@ -1,6 +1,7 @@
 package com.example.activityserver.domain.dto.response;
 
-import com.example.activity_service.entity.Post;
+
+import com.example.activityserver.domain.entity.Post;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

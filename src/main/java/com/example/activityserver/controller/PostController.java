@@ -22,11 +22,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
-@RequiredArgsConstructor
 @RequestMapping("/activity/posts")
 @RestController
+@RequiredArgsConstructor
 public class PostController {
-
     private final PostService postService;
 
     @PostMapping("")
@@ -50,6 +49,12 @@ public class PostController {
         List<PostDto> result = postService.getMyPostList(userId);
         return new BaseResponse<>(result);
     }
+
+//    @GetMapping("")
+//    public BaseResponse<?> getAllPosts(){
+//
+//    }
+
 
     @GetMapping ("/like/{id}")
     public BaseResponse<String> likePost(@PathVariable("id") Long id){

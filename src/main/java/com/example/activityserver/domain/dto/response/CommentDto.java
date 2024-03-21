@@ -1,6 +1,6 @@
 package com.example.activityserver.domain.dto.response;
 
-import com.example.activity_service.entity.Comment;
+import com.example.activityserver.domain.entity.Comment;
 import lombok.Builder;
 import lombok.Getter;
 
