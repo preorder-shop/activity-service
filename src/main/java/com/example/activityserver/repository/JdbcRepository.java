@@ -17,22 +17,29 @@ public class JdbcRepository {
     /**
      * 뉴스피드에서 조건별 게시글 조회 API
      */
-    public List<PostDto> getPostListByCondition(String userId, String type) { // 인기순으로 정렬(좋아요 개수)
+    public List<PostDto> getPostListByCondition(String userId, String type,int startPage,int pageSize) { // 인기순으로 정렬(좋아요 개수)
         String sql = "";
+        int offset = (startPage)*pageSize;
         if (type.equals("all")) { // 모든 포스트
             sql = "select p.id, p.title, p.content , p.user_id from post p "
-                    + "left join (select post_id ,count(*) as like_count from like_post) lp on lp.post_id=p.id "
-                    + "order by lp.like_count DESC";
-            return jdbcTemplate.query(sql, itemRowMapper());
+                    + "left join (select post_id ,count(*) as like_count from like_post group by post_id) lp on lp.post_id=p.id "
+                    + "order by lp.like_count DESC "
+                    + "LIMIT ? OFFSET ?";
+
+            Object[] args = new Object[]{pageSize,offset};
+            return jdbcTemplate.query(sql, itemRowMapper(),args);
         }
         if (type.equals("follow")) {//  팔로우한 사용자의 포스트
             sql = "select p.id, p.title, p.content , p.user_id from post p "
-                    + "left join (select post_id ,count(*) as like_count from like_post) lp on lp.post_id=p.id "
+                    + "left join (select post_id ,count(*) as like_count from like_post group by post_id) lp on lp.post_id=p.id "
                     + "left join (select to_user_id, from_user_id from follow) f on f.from_user_id=? "
-                    + "where p.userId=f.to_user_id "
-                    + "order by lp.like_count DESC";
+                    + "where p.user_id=f.to_user_id "
+                    + "order by lp.like_count DESC "
+                    + "LIMIT ? OFFSET ?";
 
-            return jdbcTemplate.query(sql, itemRowMapper(), userId);
+            Object[] args = new Object[]{userId,pageSize,offset};
+
+            return jdbcTemplate.query(sql, itemRowMapper(), args);
         }
         return null;
 
@@ -72,7 +79,7 @@ public class JdbcRepository {
             PostDto post = PostDto
                     .builder()
                     .postId(rs.getLong("id"))
-                    .writer(rs.getString("userId"))
+                    .writer(rs.getString("user_id"))
                     .title(rs.getString("title"))
                     .content(rs.getString("content"))
                     .build();

@@ -36,7 +36,7 @@ public class FollowService {
 
         // Id 값으로 to 유저 확인
 
-        userServiceClient.validateUserId(toUserId);
+     //   userServiceClient.validateUserId(toUserId);
 
         if (Objects.equals(fromUserId, toUserId)) {
             throw new BaseException(FOLLOW_INVALID);
