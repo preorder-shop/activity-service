@@ -9,7 +9,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
-public class GetNewsFeedReq {
+public class GetPostListByConditionReq {
 
     private String userId;
     private String type;

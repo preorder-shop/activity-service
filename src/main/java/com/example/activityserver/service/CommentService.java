@@ -4,7 +4,6 @@ import static com.example.activityserver.common.response.BaseResponseStatus.COMM
 import static com.example.activityserver.common.response.BaseResponseStatus.POST_ID_INVALID;
 
 import com.example.activityserver.common.exceptions.BaseException;
-import com.example.activityserver.common.util.JwtUtil;
 import com.example.activityserver.domain.ActiveType;
 import com.example.activityserver.domain.dto.request.CreateCommentReq;
 import com.example.activityserver.domain.dto.response.CommentDto;

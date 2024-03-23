@@ -1,10 +1,12 @@
 package com.example.activityserver.domain.dto.response;
 
 import com.example.activityserver.domain.entity.Post;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.Setter;
 
-@Getter
+@Setter @Getter
 public class PostDto {
 
     private Long postId;

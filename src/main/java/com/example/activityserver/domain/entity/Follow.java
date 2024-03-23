@@ -21,10 +21,10 @@ public class Follow extends BaseEntity{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false,name = "to_user")
+    @Column(nullable = false,name = "to_user_id")
     private String toUserId;  // follow 신청 받은 유저 id
 
-    @Column(nullable = false,name = "from_user")
+    @Column(nullable = false,name = "from_user_id")
     private String fromUserId; // follow 를 신청한 유저 id
 
 
