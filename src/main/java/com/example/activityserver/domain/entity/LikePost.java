@@ -24,7 +24,7 @@ public class LikePost {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false,name = "user_id")
+    @Column(nullable = false,name = "writer")
     private String userId;
 
     @ManyToOne(fetch = FetchType.LAZY)

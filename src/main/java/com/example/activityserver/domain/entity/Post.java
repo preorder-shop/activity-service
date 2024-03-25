@@ -26,7 +26,7 @@ public class Post extends BaseEntity {
     @Column(nullable = false)
     private String title;
     private String content;
-    @Column(nullable = false,name = "user_id")
+    @Column(nullable = false,name = "writer")
     private String userId; // UUID
 
     @Builder

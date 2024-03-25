@@ -50,11 +50,6 @@ public class PostController {
         return new BaseResponse<>(result);
     }
 
-//    @GetMapping("")
-//    public BaseResponse<?> getAllPosts(){
-//
-//    }
-
 
     @GetMapping ("/like/{id}")
     public BaseResponse<String> likePost(@PathVariable("id") Long id){
