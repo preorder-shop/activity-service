@@ -21,7 +21,7 @@ public class JdbcRepository {
         String sql = "";
         int offset = (startPage)*pageSize;
         if (type.equals("all")) { // 모든 포스트
-            sql = "select p.id, p.title, p.content , p.user_id from post p "
+            sql = "select p.id, p.title, p.content , p.writer from post p "
                     + "left join (select post_id ,count(*) as like_count from like_post group by post_id) lp on lp.post_id=p.id "
                     + "order by lp.like_count DESC "
                     + "LIMIT ? OFFSET ?";
@@ -30,10 +30,10 @@ public class JdbcRepository {
             return jdbcTemplate.query(sql, itemRowMapper(),args);
         }
         if (type.equals("follow")) {//  팔로우한 사용자의 포스트
-            sql = "select p.id, p.title, p.content , p.user_id from post p "
+            sql = "select p.id, p.title, p.content , p.writer from post p "
                     + "left join (select post_id ,count(*) as like_count from like_post group by post_id) lp on lp.post_id=p.id "
                     + "left join (select to_user_id, from_user_id from follow) f on f.from_user_id=? "
-                    + "where p.user_id=f.to_user_id "
+                    + "where p.writer=f.to_user_id "
                     + "order by lp.like_count DESC "
                     + "LIMIT ? OFFSET ?";
 
@@ -79,7 +79,7 @@ public class JdbcRepository {
             PostDto post = PostDto
                     .builder()
                     .postId(rs.getLong("id"))
-                    .writer(rs.getString("user_id"))
+                    .writer(rs.getString("writer"))
                     .title(rs.getString("title"))
                     .content(rs.getString("content"))
                     .build();
